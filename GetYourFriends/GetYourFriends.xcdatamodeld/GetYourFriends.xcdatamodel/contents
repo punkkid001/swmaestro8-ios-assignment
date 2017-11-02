@@ -3,12 +3,13 @@
     <entity name="FriendProfile" representedClassName="FriendProfile" syncable="YES" codeGenerationType="class">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="first_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="last_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="phone" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FriendProfile" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="FriendProfile" positionX="-63" positionY="-18" width="128" height="150"/>
     </elements>
 </model>

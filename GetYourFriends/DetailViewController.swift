@@ -53,7 +53,8 @@ class DetailViewController: UIViewController {
         bestFriend.setValue(emailVal, forKey: "email")
         bestFriend.setValue(phoneVal, forKey: "phone")
         bestFriend.setValue(locationVal, forKey: "location")
-        //bestFriend.setValue(imageVal, forKey: "photo")
+        let img = UIImagePNGRepresentation(imageVal!) as NSData?
+        bestFriend.setValue(img, forKey: "photo")
         
         do {
             try context.save()

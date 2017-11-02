@@ -91,10 +91,8 @@ class MyFriendViewController: UITableViewController {
                 DispatchQueue.main.async {
                     self.myFriendsInfo = tempFriendInfo
                     self.tableView.reloadData()
-                    //Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.getFriendsList), userInfo: nil, repeats: false)
 
                 }
-                //self.tableView.reloadData()
             } catch let error {
                 print(error.localizedDescription)
             }
@@ -132,7 +130,6 @@ class MyFriendViewController: UITableViewController {
         }
         
         let newView = segue.destination as! DetailViewController
-        //newView.nameVal = (selectedFriend?.gender)! + (selectedFriend?.first_name)! + (selectedFriend?.last_name)!
         newView.first_nameVal = (selectedFriend?.first_name)!
         newView.last_nameVal = (selectedFriend?.last_name)!
         newView.genderVal = (selectedFriend?.gender)!
