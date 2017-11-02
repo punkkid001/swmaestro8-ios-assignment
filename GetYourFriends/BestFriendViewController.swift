@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
 class BestFriendViewController: UITableViewController {
     var selectedFriend: PersonInfo?
     var myFriendsInfo: [PersonInfo] = []
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +23,22 @@ class BestFriendViewController: UITableViewController {
         //self.myFriendsInfo.append(data2)
         
         navigationItem.leftBarButtonItem = editButtonItem
+        
+        
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FriendProfile")
+        //request.predicate = NSPredicate(format: "age = %@", "12")
+        request.returnsObjectsAsFaults = false
+        do {
+            let result = try context.fetch(request)
+            for data in result as! [NSManagedObject] {
+                print(data.value(forKey: "first_name") as! String)
+            }
+            
+        } catch {
+            
+            print("Failed")
+        }
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
