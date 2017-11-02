@@ -16,8 +16,7 @@ class PersonInfo {
     var email: String
     var phone: String
     var location: String
-    var photo: UIImage
-    var isBest: Bool
+    var photo: UIImage?
     
     init(first_name: String, last_name: String, gender: String, email: String, phone: String, location: String, photo: String) {
         self.first_name = first_name
@@ -26,19 +25,21 @@ class PersonInfo {
         self.email = email
         self.phone = phone
         self.location = location
-        self.isBest = false
         
         let url = URL(string: photo)!
         let data = try? Data(contentsOf: url)
         
         self.photo = UIImage(data: data!)!
     }
-    func changeBestStatus() {
-        if (self.isBest == true) {
-            self.isBest = true
-        } else {
-            self.isBest = false
-        }
+    
+    init(first_name: String, last_name: String, gender: String, email: String, phone: String, location: String, photo: UIImage) {
+        self.first_name = first_name
+        self.last_name = last_name
+        self.gender = gender
+        self.email = email
+        self.phone = phone
+        self.location = location
+        self.photo = photo
     }
 }
 

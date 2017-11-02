@@ -18,12 +18,9 @@ class BestFriendViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let data1: PersonInfo = PersonInfo(first_name: "data1", last_name: "data2", gender: "man", email: "data1@naver.com", phone: "data1phone", location: "KR", photo: "https://cdn.bulbagarden.net/upload/thumb/f/fb/143Snorlax.png/250px-143Snorlax.png")
-        //let data2: PersonInfo = PersonInfo(name: "data2", email: "data2@naver.com", phone: "data2phone", location: "KR")
         self.myFriendsInfo.append(data1)
-        //self.myFriendsInfo.append(data2)
         
         navigationItem.leftBarButtonItem = editButtonItem
-        
         
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FriendProfile")
@@ -32,11 +29,29 @@ class BestFriendViewController: UITableViewController {
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "first_name") as! String)
+                //print(data.value(forKey: "first_name") as! String)
+                let first_name = data.value(forKey: "first_name") as! String
+                let last_name = data.value(forKey: "last_name") as! String
+                let gender = data.value(forKey: "gender") as! String
+                let location = data.value(forKey: "location") as! String
+                let phone = data.value(forKey: "phone") as! String
+                let email = data.value(forKey: "email") as! String
+                let photo:UIImage = UIImage(data: (data.value(forKey: "photo") as! NSData) as Data)!
+                //data.value(forKey: "photo")
+                
+                let person: PersonInfo = PersonInfo(
+                    first_name: first_name,
+                    last_name: last_name,
+                    gender: gender,
+                    email: email,
+                    phone: phone,
+                    location: location,
+                    photo: photo
+                )
+                
+                self.myFriendsInfo.append(person)
             }
-            
         } catch {
-            
             print("Failed")
         }
         
@@ -143,4 +158,3 @@ class BestFriendViewController: UITableViewController {
      */
     
 }
-

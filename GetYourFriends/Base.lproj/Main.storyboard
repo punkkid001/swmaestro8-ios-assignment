@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -178,17 +179,27 @@
                         <viewLayoutGuide key="safeArea" id="gOo-6q-HJL"/>
                     </view>
                     <navigationItem key="navigationItem" title="name" id="TMy-AH-KvL">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="uic-xR-ISg">
-                            <connections>
-                                <action selector="addBestFriend:" destination="aLz-yS-YFj" id="QWl-q1-mj0"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="cancel" id="HsF-Ii-B4G">
+                                <connections>
+                                    <action selector="removeBestFriend:" destination="aLz-yS-YFj" id="6kl-aP-cfg"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="0gu-3b-jxO">
+                                <connections>
+                                    <action selector="addBestFriend:" destination="aLz-yS-YFj" id="aYz-Bd-nJJ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="0gu-3b-jxO" id="yqe-xU-s2j"/>
+                        <outlet property="cancelButton" destination="HsF-Ii-B4G" id="bmr-ay-AR7"/>
                         <outlet property="email" destination="suh-gj-VXW" id="CxH-0a-o2n"/>
                         <outlet property="image" destination="SpB-Gt-gUF" id="P3V-ep-4kE"/>
                         <outlet property="location" destination="hdf-39-Xrv" id="V54-Fg-VkF"/>
                         <outlet property="name" destination="GzY-Df-qUw" id="3q5-K8-pY2"/>
+                        <outlet property="navigationBar" destination="TMy-AH-KvL" id="Var-Hk-PRk"/>
                         <outlet property="phone" destination="vlc-U8-PWO" id="RwQ-LN-qGg"/>
                     </connections>
                 </viewController>
@@ -199,7 +210,7 @@
         <!--Search View Controller-->
         <scene sceneID="j26-qH-86g">
             <objects>
-                <viewController storyboardIdentifier="webViewController" id="l9l-cl-vdI" customClass="SearchViewController" customModule="FriendsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webViewController" id="l9l-cl-vdI" customClass="SearchViewController" customModule="GetYourFriends" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Dms-d0-niW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
