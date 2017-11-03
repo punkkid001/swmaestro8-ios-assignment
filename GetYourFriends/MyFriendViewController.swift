@@ -10,36 +10,14 @@ import UIKit
 import Foundation
 
 class MyFriendViewController: UITableViewController {
+    
     var selectedFriend: PersonInfo?
-    var refresher: UIRefreshControl!
     var myFriendsInfo: [PersonInfo] = []
     
-    
-    @IBOutlet weak var navigationBar: UINavigationItem!
-    
+    var refresher: UIRefreshControl!
     var myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle:UIActivityIndicatorViewStyle.gray)
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        refresher = UIRefreshControl()
-        refresher.addTarget(self, action: #selector(MyFriendViewController.populate), for: .valueChanged)
-        tableView.addSubview(refresher)
-        
-        self.myActivityIndicator.hidesWhenStopped = true
-        view.addSubview(self.myActivityIndicator)
-        
-        let barButtonItem = UIBarButtonItem(customView: self.myActivityIndicator)
-        self.navigationBar.rightBarButtonItem = barButtonItem
-        
-        self.getFriendsList()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+    @IBOutlet weak var navigationBar: UINavigationItem!
     
     func addRefreshHeader() {
         self.myActivityIndicator.startAnimating()
@@ -47,7 +25,15 @@ class MyFriendViewController: UITableViewController {
     
     func removeRefreshHeader() {
         self.myActivityIndicator.stopAnimating()
-        //self.navigationBar.rightBarButtonItem = nil
+    }
+    
+    @IBAction func reloadFriendList(_ sender: Any) {
+        self.addRefreshHeader()
+        self.myFriendsInfo = []
+        self.getFriendsList()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+            self.removeRefreshHeader()
+        }
     }
     
     @objc func getFriendsList() {
@@ -85,7 +71,6 @@ class MyFriendViewController: UITableViewController {
                         location: result["nat"] as! String,
                         photo: photo_info["medium"] as! String
                     )
-                    //self.myFriendsInfo.append(person)
                     tempFriendInfo.append(person)
                 }
                 DispatchQueue.main.async {
@@ -105,13 +90,20 @@ class MyFriendViewController: UITableViewController {
         refresher.endRefreshing()
     }
     
-    @IBAction func reloadFriendList(_ sender: Any) {
-        self.addRefreshHeader()
-        self.myFriendsInfo = []
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        refresher = UIRefreshControl()
+        refresher.addTarget(self, action: #selector(MyFriendViewController.populate), for: .valueChanged)
+        tableView.addSubview(refresher)
+        
+        self.myActivityIndicator.hidesWhenStopped = true
+        view.addSubview(self.myActivityIndicator)
+        
+        let barButtonItem = UIBarButtonItem(customView: self.myActivityIndicator)
+        self.navigationBar.rightBarButtonItem = barButtonItem
+        
         self.getFriendsList()
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
-            self.removeRefreshHeader()
-        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -209,4 +201,3 @@ class MyFriendViewController: UITableViewController {
      }
      */
 }
-

@@ -10,24 +10,9 @@ import UIKit
 import WebKit
 
 class SearchViewController: UIViewController, WKUIDelegate {
-    @IBOutlet weak var webView: WKWebView!
+    
     var searchKeyword: String = ""
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        let requestUrl = "https://www.google.com/search?q=" + searchKeyword
-        let encodedUrl = requestUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let searchUrl = URL(string: encodedUrl)!
-        
-        let request = URLRequest(url: searchUrl)
-        webView.load(request)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    @IBOutlet weak var webView: WKWebView!
     
     @IBAction func backward(_ sender: Any) {
         self.webView.goBack()
@@ -46,9 +31,25 @@ class SearchViewController: UIViewController, WKUIDelegate {
     }
     
     @IBAction func dismiss(sender: AnyObject) {
-        //self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        let requestUrl = "https://www.google.com/search?q=" + searchKeyword
+        let encodedUrl = requestUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let searchUrl = URL(string: encodedUrl)!
+        
+        let request = URLRequest(url: searchUrl)
+        webView.load(request)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     /*
      // MARK: - Navigation
      
@@ -58,6 +59,4 @@ class SearchViewController: UIViewController, WKUIDelegate {
      // Pass the selected object to the new view controller.
      }
      */
-    
 }
-
