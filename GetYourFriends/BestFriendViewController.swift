@@ -17,9 +17,17 @@ class BestFriendViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.loadBestFriends()
         navigationItem.rightBarButtonItem = editButtonItem
         
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    func loadBestFriends() {
         self.myFriendsInfo = []
         
         let context = appDelegate.persistentContainer.viewContext
@@ -53,12 +61,10 @@ class BestFriendViewController: UITableViewController {
         }
         
         self.tableView.reloadData()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.loadBestFriends()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,7 +96,6 @@ class BestFriendViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        print("dsfasasdf")
         return 1
     }
     

@@ -162,24 +162,4 @@ class DetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*
-    override func viewWillDisappear(_ animated: Bool)
-    {
-        super.viewWillDisappear(animated);
-        if self.isMovingFromParentViewController
-        {
-            //On click of back or swipe back
-            //print("gooogle?")
-        }
-        /*
-        if self.isBeingDismissed
-        {
-            //Dismissed
-            print("hello?")
-        }
-         */
-    }
-    */
 }
-
