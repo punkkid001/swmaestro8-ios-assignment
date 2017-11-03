@@ -20,6 +20,8 @@ class BestFriendViewController: UITableViewController {
         
         navigationItem.rightBarButtonItem = editButtonItem
         
+        self.myFriendsInfo = []
+        
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FriendProfile")
         //request.predicate = NSPredicate(format: "age = %@", "12")
@@ -27,7 +29,6 @@ class BestFriendViewController: UITableViewController {
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
-                //print(data.value(forKey: "first_name") as! String)
                 let first_name = data.value(forKey: "first_name") as! String
                 let last_name = data.value(forKey: "last_name") as! String
                 let gender = data.value(forKey: "gender") as! String
@@ -35,7 +36,6 @@ class BestFriendViewController: UITableViewController {
                 let phone = data.value(forKey: "phone") as! String
                 let email = data.value(forKey: "email") as! String
                 let photo:UIImage = UIImage(data: (data.value(forKey: "photo") as! NSData) as Data)!
-                //data.value(forKey: "photo")
                 
                 let person: PersonInfo = PersonInfo(
                     first_name: first_name,
@@ -46,12 +46,13 @@ class BestFriendViewController: UITableViewController {
                     location: location,
                     photo: photo
                 )
-                
                 self.myFriendsInfo.append(person)
             }
         } catch {
             print("Failed")
         }
+        
+        self.tableView.reloadData()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -59,6 +60,7 @@ class BestFriendViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowFriendDetails" {
             let cell = sender as! UITableViewCell
@@ -88,6 +90,7 @@ class BestFriendViewController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
+        print("dsfasasdf")
         return 1
     }
     
@@ -104,7 +107,6 @@ class BestFriendViewController: UITableViewController {
         cell.textLabel!.text = person.first_name + " " + person.last_name
         cell.detailTextLabel!.text = person.email
         cell.imageView?.image = person.photo
-        
         return cell
     }
     

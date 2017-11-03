@@ -124,6 +124,32 @@ class DetailViewController: UIViewController {
     }
     
     @objc func removeBestFriend() {
+        if self.alreadyBestFriendList.contains(where: { $0.email == emailVal }) {
+            if self.alreadyBestFriendList.contains(where: { $0.phone == phoneVal }) {
+                let context = self.appDelegate.persistentContainer.viewContext
+                let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FriendProfile")
+                let pred = NSPredicate(format: "(email = %@) AND (phone = %@)", self.emailVal, self.phoneVal)
+                request.predicate = pred
+                
+                do {
+                    let result = try context.fetch(request) as! [NSManagedObject]
+                    
+                    for data in result {
+                        context.delete(data)
+                    }
+                    
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Failed saving")
+                    }
+                } catch {
+                    print("Failed")
+                }
+                
+            }
+        }
+        
         self.navigationBar.rightBarButtonItem = self.addButton
     }
     

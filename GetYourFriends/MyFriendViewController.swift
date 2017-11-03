@@ -91,7 +91,6 @@ class MyFriendViewController: UITableViewController {
                 DispatchQueue.main.async {
                     self.myFriendsInfo = tempFriendInfo
                     self.tableView.reloadData()
-
                 }
             } catch let error {
                 print(error.localizedDescription)
