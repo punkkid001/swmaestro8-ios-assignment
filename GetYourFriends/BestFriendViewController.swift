@@ -17,10 +17,8 @@ class BestFriendViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let data1: PersonInfo = PersonInfo(first_name: "data1", last_name: "data2", gender: "man", email: "data1@naver.com", phone: "data1phone", location: "KR", photo: "https://cdn.bulbagarden.net/upload/thumb/f/fb/143Snorlax.png/250px-143Snorlax.png")
-        self.myFriendsInfo.append(data1)
         
-        navigationItem.leftBarButtonItem = editButtonItem
+        navigationItem.rightBarButtonItem = editButtonItem
         
         let context = appDelegate.persistentContainer.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FriendProfile")
