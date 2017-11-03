@@ -27,6 +27,32 @@ class BestFriendViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    func saveBestFriends() {
+        let context = appDelegate.persistentContainer.viewContext
+        let entity = NSEntityDescription.entity(forEntityName: "FriendProfile", in: context)
+        
+        do {
+            for person in self.myFriendsInfo {
+                let bestFriend = NSManagedObject(entity: entity!, insertInto: context)
+                
+                bestFriend.setValue(person.first_name, forKey: "first_name")
+                bestFriend.setValue(person.last_name, forKey: "last_name")
+                bestFriend.setValue(person.gender, forKey: "gender")
+                bestFriend.setValue(person.email, forKey: "email")
+                bestFriend.setValue(person.phone, forKey: "phone")
+                bestFriend.setValue(person.location, forKey: "location")
+                let img = UIImagePNGRepresentation(person.photo!) as NSData?
+                bestFriend.setValue(img, forKey: "photo")
+                
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed saving")
+                }
+            }
+        }
+    }
+    
     func loadBestFriends() {
         self.myFriendsInfo = []
         
@@ -137,20 +163,38 @@ class BestFriendViewController: UITableViewController {
          */
     }
     
-    /*
      // Override to support rearranging the table view.
      override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
+        let item = self.myFriendsInfo[fromIndexPath.row]
+        self.myFriendsInfo.remove(at: fromIndexPath.row)
+        self.myFriendsInfo.insert(item, at: to.row)
+        
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "FriendProfile")
+        request.returnsObjectsAsFaults = false
+        do {
+            let totalBestFriends = try context.fetch(request) as! [NSManagedObject]
+            
+            for data in totalBestFriends {
+                context.delete(data)
+                do {
+                    try context.save()
+                } catch {
+                    print("Failed saving")
+                }
+            }
+        } catch {
+            print("Failed")
+        }
+        
+        self.saveBestFriends()
      }
-     */
     
-    /*
      // Override to support conditional rearranging of the table view.
      override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the item to be re-orderable.
      return true
      }
-     */
     
     /*
      // MARK: - Navigation
